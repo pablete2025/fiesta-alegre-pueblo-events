@@ -36,7 +36,7 @@ const Index = () => {
     return (
       <div className="min-h-screen">
         <FestivalHeader />
-        <main className="container mx-auto px-4 py-8">
+        <main className="container mx-auto px-4 py-8 pt-24">
           <EventDetails 
             event={selectedEvent} 
             onBack={() => setSelectedEvent(null)} 
@@ -50,7 +50,7 @@ const Index = () => {
     <div className="min-h-screen">
       <FestivalHeader />
       
-      <main className="container mx-auto px-4 py-8">
+      <main className="container mx-auto px-4 py-8 pt-24">
         {/* Hero Section */}
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600 bg-clip-text text-transparent">
