@@ -13,18 +13,18 @@ export const useNotifications = () => {
       initializePushNotifications();
     } else if ('Notification' in window) {
       setIsSupported(true);
-      setPermission(Notification.permission);
+      setPermission(Notification.permission as 'granted' | 'denied' | 'default');
     }
   }, []);
 
   const initializePushNotifications = async () => {
     try {
       const result = await PushNotifications.checkPermissions();
-      setPermission(result.receive);
+      setPermission(result.receive as 'granted' | 'denied' | 'default');
 
       if (result.receive === 'prompt') {
         const permissionResult = await PushNotifications.requestPermissions();
-        setPermission(permissionResult.receive);
+        setPermission(permissionResult.receive as 'granted' | 'denied' | 'default');
       }
 
       if (result.receive === 'granted') {
@@ -59,7 +59,7 @@ export const useNotifications = () => {
     if (Capacitor.isNativePlatform()) {
       try {
         const result = await PushNotifications.requestPermissions();
-        setPermission(result.receive);
+        setPermission(result.receive as 'granted' | 'denied' | 'default');
         if (result.receive === 'granted') {
           await PushNotifications.register();
         }
@@ -70,7 +70,7 @@ export const useNotifications = () => {
       }
     } else if ('Notification' in window) {
       const result = await Notification.requestPermission();
-      setPermission(result);
+      setPermission(result as 'granted' | 'denied' | 'default');
       return result === 'granted';
     }
     return false;

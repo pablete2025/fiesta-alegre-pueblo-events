@@ -53,7 +53,7 @@ const Index = () => {
       <main className="container mx-auto px-4 py-8">
         {/* Hero Section */}
         <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-festival-orange via-festival-red to-festival-pink bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600 bg-clip-text text-transparent">
             ¡Celebremos Juntos!
           </h2>
           <p className="text-lg text-gray-700 mb-6 max-w-2xl mx-auto">
@@ -61,11 +61,11 @@ const Index = () => {
           </p>
           
           {upcomingEvents.length > 0 && (
-            <div className="bg-gradient-to-r from-festival-yellow/20 to-festival-orange/20 rounded-lg p-6 mb-8">
+            <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg p-6 mb-8">
               <div className="flex items-center justify-center mb-3">
-                <Sparkles className="w-6 h-6 text-festival-orange mr-2 animate-bounce-gentle" />
+                <Sparkles className="w-6 h-6 text-green-600 mr-2 animate-bounce-gentle" />
                 <h3 className="text-xl font-semibold text-gray-800">Próximo Evento</h3>
-                <Sparkles className="w-6 h-6 text-festival-orange ml-2 animate-bounce-gentle" />
+                <Sparkles className="w-6 h-6 text-green-600 ml-2 animate-bounce-gentle" />
               </div>
               <div className="max-w-md mx-auto">
                 <EventCard 
@@ -90,7 +90,7 @@ const Index = () => {
           <Button
             onClick={() => setShowOnlyFavorites(true)}
             variant={showOnlyFavorites ? "default" : "outline"}
-            className={`${showOnlyFavorites ? "bg-red-500 hover:bg-red-600 text-white" : "border-red-500 text-red-500 hover:bg-red-50"}`}
+            className={`${showOnlyFavorites ? "bg-green-600 hover:bg-green-700 text-white" : "border-green-600 text-green-600 hover:bg-green-50"}`}
           >
             <Heart className="w-4 h-4 mr-2" />
             Mis Favoritos ({favoriteEvents.length})

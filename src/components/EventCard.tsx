@@ -59,7 +59,7 @@ const EventCard: React.FC<EventCardProps> = ({ event, onClick, showFavorite = tr
               variant="ghost"
               size="sm"
               onClick={handleFavoriteClick}
-              className={`p-2 ${isFavorite(event.id) ? 'text-red-500' : 'text-gray-400'} hover:text-red-500`}
+              className={`p-2 ${isFavorite(event.id) ? 'text-green-600' : 'text-gray-400'} hover:text-green-600`}
             >
               <Heart className={`w-5 h-5 ${isFavorite(event.id) ? 'fill-current' : ''}`} />
             </Button>
@@ -77,17 +77,17 @@ const EventCard: React.FC<EventCardProps> = ({ event, onClick, showFavorite = tr
         
         <div className="space-y-2">
           <div className="flex items-center text-sm text-gray-700">
-            <Calendar className="w-4 h-4 mr-2 text-festival-orange" />
+            <Calendar className="w-4 h-4 mr-2 text-green-600" />
             <span className="font-medium">{formatDate(event.startDate)}</span>
           </div>
           
           <div className="flex items-center text-sm text-gray-700">
-            <Clock className="w-4 h-4 mr-2 text-festival-red" />
+            <Clock className="w-4 h-4 mr-2 text-emerald-600" />
             <span>{formatTime(event.startTime)}</span>
           </div>
           
           <div className="flex items-center text-sm text-gray-700">
-            <MapPin className="w-4 h-4 mr-2 text-festival-pink" />
+            <MapPin className="w-4 h-4 mr-2 text-teal-600" />
             <span className="line-clamp-1">{event.location}</span>
           </div>
         </div>

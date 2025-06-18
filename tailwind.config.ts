@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -63,15 +62,15 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Colores festivos para fiestas patronales
+				// Colores festivos en escala de verdes
 				festival: {
-					yellow: '#FFD700',
-					orange: '#FF8C00',
-					red: '#FF6347',
-					pink: '#FF69B4',
-					purple: '#9370DB',
-					blue: '#4169E1',
-					green: '#32CD32'
+					'light-green': '#86EFAC',
+					'green': '#22C55E',
+					'emerald': '#10B981',
+					'teal': '#14B8A6',
+					'dark-green': '#059669',
+					'forest': '#047857',
+					'mint': '#6EE7B7'
 				}
 			},
 			borderRadius: {

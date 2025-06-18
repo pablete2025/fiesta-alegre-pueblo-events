@@ -43,15 +43,25 @@ const EventDetails: React.FC<EventDetailsProps> = ({ event, onBack }) => {
   };
 
   const requestNotificationPermission = async () => {
+    // Solo permitir notificaciones si el evento está marcado como favorito
+    if (!isFavorite(event.id)) {
+      toast({
+        title: "Marca como favorito primero",
+        description: "Debes marcar este evento como favorito para recibir notificaciones.",
+        variant: "destructive"
+      });
+      return;
+    }
+
     if ('Notification' in window) {
       const permission = await Notification.requestPermission();
       if (permission === 'granted') {
         toast({
           title: "¡Perfecto!",
-          description: "Recibirás notificaciones 30 minutos antes del evento.",
+          description: "Recibirás notificaciones 30 minutos antes del evento favorito.",
         });
         
-        // Programar notificación 30 minutos antes
+        // Programar notificación 30 minutos antes solo para eventos favoritos
         const eventDateTime = new Date(`${event.startDate}T${event.startTime}`);
         const notificationTime = new Date(eventDateTime.getTime() - 30 * 60 * 1000);
         const now = new Date();
@@ -59,10 +69,12 @@ const EventDetails: React.FC<EventDetailsProps> = ({ event, onBack }) => {
         if (notificationTime > now) {
           const timeUntilNotification = notificationTime.getTime() - now.getTime();
           setTimeout(() => {
-            new Notification('¡Atención!', {
-              body: `El evento ${event.title} comenzará en 30 minutos en ${event.location}.`,
-              icon: '/favicon.ico'
-            });
+            if (isFavorite(event.id)) { // Verificar que siga siendo favorito
+              new Notification('¡Atención!', {
+                body: `El evento ${event.title} comenzará en 30 minutos en ${event.location}.`,
+                icon: '/favicon.ico'
+              });
+            }
           }, timeUntilNotification);
         }
       } else {
@@ -104,24 +116,24 @@ const EventDetails: React.FC<EventDetailsProps> = ({ event, onBack }) => {
           </div>
           
           <div className="grid gap-4">
-            <div className="flex items-center p-3 bg-gradient-to-r from-festival-yellow/20 to-festival-orange/20 rounded-lg">
-              <Calendar className="w-6 h-6 mr-3 text-festival-orange" />
+            <div className="flex items-center p-3 bg-gradient-to-r from-green-100 to-emerald-100 rounded-lg">
+              <Calendar className="w-6 h-6 mr-3 text-green-600" />
               <div>
                 <p className="font-semibold text-gray-800">Fecha</p>
                 <p className="text-gray-600">{formatDate(event.startDate)}</p>
               </div>
             </div>
             
-            <div className="flex items-center p-3 bg-gradient-to-r from-festival-red/20 to-festival-pink/20 rounded-lg">
-              <Clock className="w-6 h-6 mr-3 text-festival-red" />
+            <div className="flex items-center p-3 bg-gradient-to-r from-emerald-100 to-teal-100 rounded-lg">
+              <Clock className="w-6 h-6 mr-3 text-emerald-600" />
               <div>
                 <p className="font-semibold text-gray-800">Hora</p>
                 <p className="text-gray-600">{formatTime(event.startTime)}</p>
               </div>
             </div>
             
-            <div className="flex items-start p-3 bg-gradient-to-r from-festival-pink/20 to-festival-purple/20 rounded-lg">
-              <MapPin className="w-6 h-6 mr-3 text-festival-pink mt-1" />
+            <div className="flex items-start p-3 bg-gradient-to-r from-teal-100 to-green-100 rounded-lg">
+              <MapPin className="w-6 h-6 mr-3 text-teal-600 mt-1" />
               <div className="flex-1">
                 <p className="font-semibold text-gray-800">Ubicación</p>
                 <p className="text-gray-600">{event.location}</p>
@@ -130,7 +142,7 @@ const EventDetails: React.FC<EventDetailsProps> = ({ event, onBack }) => {
                     href={`https://www.google.com/maps?q=${event.coordinates.lat},${event.coordinates.lng}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-festival-blue hover:underline text-sm mt-1 inline-block"
+                    className="text-emerald-600 hover:underline text-sm mt-1 inline-block"
                   >
                     Ver en Google Maps →
                   </a>
@@ -145,8 +157,8 @@ const EventDetails: React.FC<EventDetailsProps> = ({ event, onBack }) => {
                 onClick={handleFavoriteClick}
                 variant={isFavorite(event.id) ? "default" : "outline"}
                 className={`flex-1 ${isFavorite(event.id) 
-                  ? 'bg-red-500 hover:bg-red-600 text-white' 
-                  : 'border-red-500 text-red-500 hover:bg-red-50'
+                  ? 'bg-green-600 hover:bg-green-700 text-white' 
+                  : 'border-green-600 text-green-600 hover:bg-green-50'
                 }`}
               >
                 <Heart className={`w-4 h-4 mr-2 ${isFavorite(event.id) ? 'fill-current' : ''}`} />
@@ -156,7 +168,8 @@ const EventDetails: React.FC<EventDetailsProps> = ({ event, onBack }) => {
               <Button
                 onClick={requestNotificationPermission}
                 variant="outline"
-                className="border-festival-blue text-festival-blue hover:bg-blue-50"
+                className="border-emerald-600 text-emerald-600 hover:bg-emerald-50"
+                disabled={!isFavorite(event.id)}
               >
                 <Bell className="w-4 h-4 mr-2" />
                 Notificarme
