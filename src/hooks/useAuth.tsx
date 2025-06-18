@@ -12,10 +12,10 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-// Admin por defecto para demo
+// Credenciales de administrador
 const ADMIN_CREDENTIALS = {
-  username: 'admin',
-  password: 'festejo2024'
+  username: 'vergazal',
+  password: 'vergazal'
 };
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
