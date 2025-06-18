@@ -1,0 +1,29 @@
+
+{
+  "name": "Fiestas Patronales - San Pedro del Valle",
+  "short_name": "Fiestas Patronales",
+  "description": "Eventos y celebraciones de las fiestas patronales de San Pedro del Valle",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FEF7E0",
+  "theme_color": "#FF8C00",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ],
+  "categories": ["entertainment", "lifestyle", "social"],
+  "lang": "es",
+  "dir": "ltr"
+}
