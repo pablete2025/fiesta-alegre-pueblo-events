@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useEvents } from '../hooks/useEvents';
 import { useFavorites } from '../hooks/useFavorites';
@@ -54,7 +53,7 @@ const Index = () => {
         {/* Hero Section */}
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600 bg-clip-text text-transparent">
-            ¡Celebremos Juntos!
+            ¡VIVA PEDRAJA!
           </h2>
           <p className="text-lg text-gray-700 mb-6 max-w-2xl mx-auto">
             Descubre todos los eventos de nuestras fiestas patronales. No te pierdas ni una sola celebración.
