@@ -1,7 +1,6 @@
 
 import { useEffect } from 'react';
 import { useLocalStorage } from './useLocalStorage';
-import { sampleEvents } from '../data/sampleEvents';
 import { EventData } from '../types/event';
 
 export const useSampleData = () => {
@@ -9,12 +8,13 @@ export const useSampleData = () => {
   const [dataInitialized, setDataInitialized] = useLocalStorage('festival_data_initialized', false);
 
   useEffect(() => {
-    if (!dataInitialized && events.length === 0) {
-      setEvents(sampleEvents);
+    // Clear any existing sample data on first load
+    if (!dataInitialized) {
+      setEvents([]);
       setDataInitialized(true);
-      console.log('Sample events loaded successfully');
+      console.log('Sample events cleared - only admins can add events now');
     }
-  }, [dataInitialized, events.length, setEvents, setDataInitialized]);
+  }, [dataInitialized, setEvents, setDataInitialized]);
 
   return { dataInitialized };
 };

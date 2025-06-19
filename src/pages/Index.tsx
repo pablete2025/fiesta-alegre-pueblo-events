@@ -77,24 +77,26 @@ const Index = () => {
           )}
         </div>
 
-        {/* Filter Section */}
-        <div className="flex flex-col sm:flex-row gap-4 mb-8">
-          <Button
-            onClick={() => setShowOnlyFavorites(false)}
-            variant={!showOnlyFavorites ? "default" : "outline"}
-            className={!showOnlyFavorites ? "festival-button" : ""}
-          >
-            Todos los Eventos ({allEvents.length})
-          </Button>
-          <Button
-            onClick={() => setShowOnlyFavorites(true)}
-            variant={showOnlyFavorites ? "default" : "outline"}
-            className={`${showOnlyFavorites ? "bg-green-600 hover:bg-green-700 text-white" : "border-green-600 text-green-600 hover:bg-green-50"}`}
-          >
-            <Heart className="w-4 h-4 mr-2" />
-            Mis Favoritos ({favoriteEvents.length})
-          </Button>
-        </div>
+        {/* Filter Section - Only show if there are events */}
+        {allEvents.length > 0 && (
+          <div className="flex flex-col sm:flex-row gap-4 mb-8">
+            <Button
+              onClick={() => setShowOnlyFavorites(false)}
+              variant={!showOnlyFavorites ? "default" : "outline"}
+              className={!showOnlyFavorites ? "festival-button" : ""}
+            >
+              Todos los Eventos ({allEvents.length})
+            </Button>
+            <Button
+              onClick={() => setShowOnlyFavorites(true)}
+              variant={showOnlyFavorites ? "default" : "outline"}
+              className={`${showOnlyFavorites ? "bg-green-600 hover:bg-green-700 text-white" : "border-green-600 text-green-600 hover:bg-green-50"}`}
+            >
+              <Heart className="w-4 h-4 mr-2" />
+              Mis Favoritos ({favoriteEvents.length})
+            </Button>
+          </div>
+        )}
 
         {/* Events Grid */}
         {displayEvents.length > 0 ? (
@@ -129,10 +131,10 @@ const Index = () => {
               <div>
                 <Sparkles className="w-16 h-16 text-gray-300 mx-auto mb-4" />
                 <h3 className="text-xl font-semibold text-gray-600 mb-2">
-                  No hay eventos publicados
+                  Próximamente...
                 </h3>
                 <p className="text-gray-500">
-                  Los eventos aparecerán aquí cuando sean agregados por los administradores
+                  Los eventos de las fiestas patronales aparecerán aquí cuando sean publicados por los organizadores
                 </p>
               </div>
             )}
