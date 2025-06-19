@@ -9,7 +9,71 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      events: {
+        Row: {
+          coordinates: Json | null
+          created_at: string
+          description: string
+          id: string
+          location: string
+          start_date: string
+          start_time: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          coordinates?: Json | null
+          created_at?: string
+          description: string
+          id?: string
+          location: string
+          start_date: string
+          start_time: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          coordinates?: Json | null
+          created_at?: string
+          description?: string
+          id?: string
+          location?: string
+          start_date?: string
+          start_time?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      user_favorites: {
+        Row: {
+          created_at: string
+          event_id: string
+          id: string
+          user_session_id: string
+        }
+        Insert: {
+          created_at?: string
+          event_id: string
+          id?: string
+          user_session_id: string
+        }
+        Update: {
+          created_at?: string
+          event_id?: string
+          id?: string
+          user_session_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_favorites_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "events"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never

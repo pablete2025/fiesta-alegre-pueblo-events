@@ -1,20 +1,14 @@
 
-import { useEffect } from 'react';
-import { useLocalStorage } from './useLocalStorage';
-import { EventData } from '../types/event';
+import { useEffect, useState } from 'react';
 
 export const useSampleData = () => {
-  const [events, setEvents] = useLocalStorage<EventData[]>('festival_events', []);
-  const [dataInitialized, setDataInitialized] = useLocalStorage('festival_data_initialized', false);
+  const [dataInitialized, setDataInitialized] = useState(true);
 
   useEffect(() => {
-    // Clear any existing sample data on first load
-    if (!dataInitialized) {
-      setEvents([]);
-      setDataInitialized(true);
-      console.log('Sample events cleared - only admins can add events now');
-    }
-  }, [dataInitialized, setEvents, setDataInitialized]);
+    // Clear any existing localStorage data on first load to migrate to Supabase
+    localStorage.removeItem('festival_events');
+    console.log('Migrated to Supabase - localStorage events cleared');
+  }, []);
 
   return { dataInitialized };
 };

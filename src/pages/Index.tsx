@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useEvents } from '../hooks/useEvents';
 import { useFavorites } from '../hooks/useFavorites';
@@ -6,16 +7,16 @@ import FestivalHeader from '../components/FestivalHeader';
 import EventCard from '../components/EventCard';
 import EventDetails from '../components/EventDetails';
 import { Button } from '../components/ui/button';
-import { Heart, Sparkles } from 'lucide-react';
+import { Heart, Sparkles, Loader2 } from 'lucide-react';
 import { EventData } from '../types/event';
 
 const Index = () => {
-  const { events, getUpcomingEvents } = useEvents();
+  const { events, getUpcomingEvents, loading } = useEvents();
   const { favorites } = useFavorites();
   const [selectedEvent, setSelectedEvent] = useState<EventData | null>(null);
   const [showOnlyFavorites, setShowOnlyFavorites] = useState(false);
   
-  // Initialize sample data
+  // Initialize sample data (now just clears localStorage)
   useSampleData();
 
   const upcomingEvents = getUpcomingEvents();
@@ -77,8 +78,16 @@ const Index = () => {
           )}
         </div>
 
+        {/* Loading State */}
+        {loading && (
+          <div className="flex items-center justify-center py-12">
+            <Loader2 className="w-8 h-8 animate-spin text-green-600 mr-3" />
+            <p className="text-lg text-gray-600">Cargando eventos...</p>
+          </div>
+        )}
+
         {/* Filter Section - Only show if there are events */}
-        {allEvents.length > 0 && (
+        {!loading && allEvents.length > 0 && (
           <div className="flex flex-col sm:flex-row gap-4 mb-8">
             <Button
               onClick={() => setShowOnlyFavorites(false)}
@@ -99,46 +108,50 @@ const Index = () => {
         )}
 
         {/* Events Grid */}
-        {displayEvents.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {displayEvents.map((event) => (
-              <EventCard
-                key={event.id}
-                event={event}
-                onClick={() => setSelectedEvent(event)}
-              />
-            ))}
-          </div>
-        ) : (
-          <div className="text-center py-12">
-            {showOnlyFavorites ? (
-              <div>
-                <Heart className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                <h3 className="text-xl font-semibold text-gray-600 mb-2">
-                  No tienes eventos favoritos
-                </h3>
-                <p className="text-gray-500 mb-4">
-                  Marca algunos eventos como favoritos para verlos aquí
-                </p>
-                <Button 
-                  onClick={() => setShowOnlyFavorites(false)}
-                  className="festival-button"
-                >
-                  Ver Todos los Eventos
-                </Button>
+        {!loading && (
+          <>
+            {displayEvents.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {displayEvents.map((event) => (
+                  <EventCard
+                    key={event.id}
+                    event={event}
+                    onClick={() => setSelectedEvent(event)}
+                  />
+                ))}
               </div>
             ) : (
-              <div>
-                <Sparkles className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                <h3 className="text-xl font-semibold text-gray-600 mb-2">
-                  Próximamente...
-                </h3>
-                <p className="text-gray-500">
-                  Los eventos de las fiestas patronales aparecerán aquí cuando sean publicados por los organizadores
-                </p>
+              <div className="text-center py-12">
+                {showOnlyFavorites ? (
+                  <div>
+                    <Heart className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+                    <h3 className="text-xl font-semibold text-gray-600 mb-2">
+                      No tienes eventos favoritos
+                    </h3>
+                    <p className="text-gray-500 mb-4">
+                      Marca algunos eventos como favoritos para verlos aquí
+                    </p>
+                    <Button 
+                      onClick={() => setShowOnlyFavorites(false)}
+                      className="festival-button"
+                    >
+                      Ver Todos los Eventos
+                    </Button>
+                  </div>
+                ) : (
+                  <div>
+                    <Sparkles className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+                    <h3 className="text-xl font-semibold text-gray-600 mb-2">
+                      Próximamente...
+                    </h3>
+                    <p className="text-gray-500">
+                      Los eventos de las fiestas patronales aparecerán aquí cuando sean publicados por los organizadores
+                    </p>
+                  </div>
+                )}
               </div>
             )}
-          </div>
+          </>
         )}
       </main>
     </div>
